@@ -9,6 +9,10 @@
 				src: url("./fonts/FagoWeb.woff") format('woff');
 			}
 			
+			html, body {
+				height: 100%;
+			}
+			
 			body {
 				font-family: "Fago", sans-serif;
 				margin: 0;
@@ -180,10 +184,23 @@
 				height: 0;
 				width: 30%;
 			}
+			
+			.loading {
+				display: flex;
+				flex-direction: column;
+				height: 100%;
+				justify-content: space-around;
+			}
+			
+			.loading p {
+				font-size: 10vh;
+				margin: 0;
+				text-align: center;
+			}
 		</style>
 	</head>
 	<body>
-		<div id="app">
+		<div id="app" v-if="api != null">
 			<header>
 				<p class="left">{{ formattedtime }}</p>
 				<p class="middle">Bernina Express</p>
@@ -228,12 +245,19 @@
 										<div class="perle" v-bind:style="'width: ' + calculateBulletDimension(station) + 'vh; height: ' + calculateBulletDimension(station) + 'vh;'"></div>
 									</div>
 								</div>
-								<p v-bind:style="'opacity: ' + calculateOpacity(station) + ';'">{{ station.name }}</p>
+								<p v-bind:style="'opacity: ' + calculateOpacity(station) + ';'">
+									{{ station.name }}
+									<span v-if="calculateRemainingTime(station) > 0">{{ calculateRemainingTime(station) | toMinutes }}'</span>
+								</p>
 							</div>
 						</div>
 					</div>
 				</div>
 			</main>
+		</div>
+		<div v-else class="loading">
+			<p>Keine API-Daten vorhanden.</p>
+			<p>Das Laden der API-Daten kann einige Sekunden dauern.</p>
 		</div>
 		<script src="./js/jquery.js"></script>
 		<script src="./js/vue.js"></script>
@@ -242,13 +266,7 @@
 			new Vue({
 				"el": "#app",
 				"data": {
-					"api": {
-						"percent": 0,
-						"speed": 0,
-						"temperature": 0,
-						"time": 0,
-						"stations": []
-					},
+					"api": null,
 					"fontSizeTrigger": 10
 				},
 				"computed": {
@@ -339,6 +357,17 @@
 						}
 						
 						return "background-image: url('" + pic + "');";
+					},
+					"calculateRemainingTime": function(station) {
+						var remainingPercent = station.location - this.api.percent;
+						var remainingSeconds = remainingPercent / 100 * this.api.time_per_way;
+						
+						return remainingSeconds;
+					}
+				},
+				"filters": {
+					"toMinutes": function(seconds) {
+						return Math.round(seconds / 60, 0);
 					}
 				},
 				"mounted": function() {
@@ -351,7 +380,6 @@
 							"dataType": "json",
 							"complete": function(response, status) {
 								vue2.$data.api = response.responseJSON;
-								console.log(response.responseJSON);
 							}
 						});
 					}, 1000);

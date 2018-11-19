@@ -7,6 +7,7 @@
 	$reverse = ($now % $time_total) >= $time_per_way;
 	$way_percent = $time / $time_per_way * 100;
 	
+	$json['time_per_way'] = $time_per_way;
 	$json['percent'] = round($way_percent, 2);
 	$json['speed'] = rand(0, 100);
 	$json['temperature'] = rand(-10, 25);
