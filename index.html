@@ -164,13 +164,21 @@
 			}
 			
 			.smooth-overlay {
+				align-items: center;
 				background-image: url("./images/smooth.png");
 				background-repeat: repeat-x;
 				background-size: contain;
+				display: flex;
 				height: 85vh;
 				position: absolute;
 				width: 33.3vw;
 				z-index: 1;
+			}
+			
+			.location-line {
+				border-top: 1px dashed #808080;
+				height: 0;
+				width: 30%;
 			}
 		</style>
 	</head>
@@ -186,16 +194,12 @@
 					<div class="dashboard">
 						<div class="line">
 							<div class="wrapper">
-								<p class="icon speed"></p><p class="desc">58 km/h</p>
+								<p class="icon speed"></p><p class="desc">{{ api.speed }} km/h</p>
 							</div>
 						</div>
 						<div class="line">
 							<div class="wrapper">
-								<p class="icon temperature"></p><p class="desc">23 °C</p>
-								<select v-model="location">
-									<option value="0">0</option>
-									<option v-for="index in 100" v-bind:value="index">{{ index }}</option>
-								</select>
+								<p class="icon temperature"></p><p class="desc">{{ api.temperature }} °C</p>
 							</div>
 							<div class="wrapper">
 								<p class="icon drop_full"></p>
@@ -214,11 +218,11 @@
 					
 				</div>
 				<div id="right">
-					<div class="smooth-overlay"></div>
+					<div class="smooth-overlay"><div class="location-line"></div></div>
 					<div class="stationcontainer">
 						<div class="stationlist">
 							<div class="space top" id="firststation" v-bind:style="'margin-top: ' + locationvh + 'vh;'"></div>
-							<div class="station" v-for="station in stations" v-bind:style="'font-size: ' + calculateFontSize(station) + 'px;'">
+							<div class="station" v-for="station in api.stations" v-bind:style="'font-size: ' + calculateFontSize(station) + 'px;'">
 								<div class="perlschnur">
 									<div class="schnur" v-bind:style="calculateBackground(station)">
 										<div class="perle" v-bind:style="'width: ' + calculateBulletDimension(station) + 'vh; height: ' + calculateBulletDimension(station) + 'vh;'"></div>
@@ -238,65 +242,22 @@
 			new Vue({
 				"el": "#app",
 				"data": {
-					"stations": [
-						{
-							"name": "Chur",
-							"location": 0.0,
-							"index": 0
-						},
-						{
-							"name": "Tiefencastel",
-							"location": 16.7,
-							"index": 1
-						},
-						{
-							"name": "Filisur",
-							"location": 23.9,
-							"index": 2
-						},
-						{
-							"name": "Bergün",
-							"location": 29.0,
-							"index": 3
-						},
-						{
-							"name": "Pontresina",
-							"location": 41.87,
-							"index": 4
-						},
-						{
-							"name": "Alp Grüm",
-							"location": 57.8,
-							"index": 5
-						},
-						{
-							"name": "Poschiavo",
-							"location": 81.66,
-							"index": 6
-						},
-						{
-							"name": "Le Prese",
-							"location": 88.68,
-							"index": 7
-						},
-						{
-							"name": "Tirano",
-							"location": 100.0,
-							"index": 8
-						}
-					],
-					"date": new Date(),
-					"location": 8.0,
-					// fontSizeTrigger: Sobald eine Station so viele Prozent von der aktuellen Location weg ist, wird diese grösser
+					"api": {
+						"percent": 0,
+						"speed": 0,
+						"temperature": 0,
+						"time": 0,
+						"stations": []
+					},
 					"fontSizeTrigger": 10
 				},
 				"computed": {
 					"stationBefore": function() {
 						var station = null;
 						
-						for (var i = 0; i < this.stations.length; i++) {
-							if (this.stations[i].location <= this.location) {
-								station = this.stations[i];
+						for (var i = 0; i < this.api.stations.length; i++) {
+							if (this.api.stations[i].location <= this.api.percent) {
+								station = this.api.stations[i];
 							}
 						}
 						
@@ -305,9 +266,9 @@
 					"stationAfter": function() {
 						var station = null;
 						
-						for (var i = 0; i < this.stations.length; i++) {
-							if (this.stations[i].location > this.location) {
-								station = this.stations[i];
+						for (var i = 0; i < this.api.stations.length; i++) {
+							if (this.api.stations[i].location > this.api.percent) {
+								station = this.api.stations[i];
 								break;
 							}
 						}
@@ -319,7 +280,7 @@
 						var stationAfter = this.stationAfter;
 						
 						var vhMin = 34;
-						var vhMax = (34 - ((this.stations.length - 1) * 17));
+						var vhMax = (34 - ((this.api.stations.length - 1) * 17));
 						
 						if (stationBefore == null) {
 							return vhMin;
@@ -328,14 +289,14 @@
 						} else {
 							var vhBase = (34 - (stationBefore.index * 17));
 							var diff = stationAfter.location - stationBefore.location;
-							var wayDone = this.location - stationBefore.location;
+							var wayDone = this.api.percent - stationBefore.location;
 							var vhDelta = (wayDone / diff * 17);
 							
 							return vhBase - vhDelta;
 						}
 					},
 					"formattedtime": function() {
-						return moment(this.date).format("HH:mm");
+						return moment.unix(this.api.time).format("HH:mm");
 					}
 				},
 				"methods": {
@@ -346,19 +307,19 @@
 						return this.calculateForStation(station, 0.5, 1);
 					},
 					"calculateForStation": function(station, min, max) {
-						if (this.stations[this.stations.length - 1].index == station.index && this.stationAfter == null) {
-							var range = 100 - this.stations[this.stations.length - 2].location;
-							var diff = 100 - this.location;
+						if (this.api.stations[this.api.stations.length - 1].index == station.index && this.stationAfter == null) {
+							var range = 100 - this.api.stations[this.api.stations.length - 2].location;
+							var diff = 100 - this.api.percent;
 							
 							return (max - (diff / range * (max - min)));
 						} else if (this.stationBefore.index == station.index) {
 							var range = (this.stationAfter == null ? 100 : this.stationAfter.location) - this.stationBefore.location;
-							var diff = this.location - this.stationBefore.location;
+							var diff = this.api.percent - this.stationBefore.location;
 							
 							return (max - (diff / range * (max - min)));
 						} else if (this.stationAfter != null && this.stationAfter.index == station.index) {
 							var range = this.stationAfter.location - (this.stationBefore == null ? 0 : this.stationBefore.location);
-							var diff = this.stationAfter.location - this.location;
+							var diff = this.stationAfter.location - this.api.percent;
 							
 							return (max - (diff / range * (max - min)));
 						} else {
@@ -366,14 +327,14 @@
 						}
 					},
 					"calculateBulletDimension": function(station) {
-						return this.calculateForStation(station, 3, 7);
+						return this.calculateForStation(station, 4, 10);
 					},
 					"calculateBackground": function(station) {
 						var pic = "./images/schnur_beide.png";
 						
 						if (station.index == 0) {
 							pic = "./images/schnur_start.png";
-						} else if (station.index == (this.stations.length - 1)) {
+						} else if (station.index == (this.api.stations.length - 1)) {
 							pic = "./images/schnur_ende.png";
 						}
 						
@@ -384,8 +345,16 @@
 					var vue = this;
 					
 					window.setInterval(function() {
-						vue.$data.date = new Date();
-					}, 500);
+						var vue2 = vue;
+						
+						$.ajax("./json.php", {
+							"dataType": "json",
+							"complete": function(response, status) {
+								vue2.$data.api = response.responseJSON;
+								console.log(response.responseJSON);
+							}
+						});
+					}, 1000);
 				}
 			});
 		</script>
