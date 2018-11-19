@@ -197,6 +197,56 @@
 				margin: 0;
 				text-align: center;
 			}
+            
+                    /*%%%%%%%%% TEMPERATUR THERMOMETER%%%%%%%%%%%*/
+
+        .temp_circle {
+            height: 40px;
+            width: 40px;
+            background-color: rgb(239, 58, 44);
+            border-radius: 50%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        .temp_balken_outer {
+            width: 16px;
+            height: 50px;
+            background-color: #96bade;
+            position: absolute;
+            bottom: 30px;
+            left: 12px;
+            border-radius: 10px;
+        }
+
+        .temp_balken_inner {
+
+            width: 16px;
+            height: 40px;
+            background-color: rgb(239, 58, 44);
+            position: absolute;
+            bottom: 0px;
+            
+
+            /*	background-color circle und temp_balken_inner bei -20°C: rgb(77, 101, 224)
+            background-color circle und temp_balken_inner bei 40°C:  rgb(239, 58, 44)
+
+            height .temp_balken_inner bei -20°C: 10px
+            height .temp_balken_inner bei 40°C: 50px;
+
+        */
+        }
+
+        .cont_flex_icons {
+
+            display: flex;
+            /* or inline-flex */
+            flex-direction: row;
+            position: relative;
+            margin-left: 10px;
+           
+        }
 		</style>
 	</head>
 	<body>
@@ -216,7 +266,16 @@
 						</div>
 						<div class="line">
 							<div class="wrapper">
-								<p class="icon temperature"></p><p class="desc">{{ api.temperature }} °C</p>
+								<div class="wrapper">
+                                <div class=" cont_flex_icons">
+                                    <div class="temp_circle">
+                                        <div class="temp_balken_outer">
+                                            <div class="temp_balken_inner"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                <p class="desc">{{ api.temperature }} °C</p>
 							</div>
 							<div class="wrapper">
 								<p class="icon drop_full"></p>
