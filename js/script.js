@@ -116,6 +116,28 @@ new Vue({
 			var deg = min + factor * (max - min);
 			
 			return "transform: rotate(" + Math.round(deg) + "deg);";
+		},
+		"temperatureColor": function(temperature) {
+			var min = -20;
+			var max = 40;
+			var red = [77, 239];
+			var green = [101, 58];
+			var blue = [224, 44];
+			var factor = (temperature + 20) / (max - min);
+			
+			var r = red[0] + factor * (red[1] - red[0]);
+			var g = green[0] + factor * (green[1] - green[0]);
+			var b = blue[0] + factor * (blue[1] - blue[0]);
+			
+			return "background-color: rgb(" + Math.round(r) + ", " + Math.round(g) + ", " + Math.round(b) + ");";
+		},
+		"temperatureHeight": function(temperature) {
+			var min = -20;
+			var max = 40;
+			
+			temperature += 20;
+			
+			return "height: " + (1 - temperature / (max - min)) * 100 + "%;";
 		}
 	},
 	"mounted": function() {

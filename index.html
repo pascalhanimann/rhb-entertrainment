@@ -27,21 +27,11 @@
 							</div>
 							<div class="line">
 								<div class="wrapper">
-									<div class="wrapper">
-									<div class=" cont_flex_icons">
-										<div class="temp_circle">
-											<div class="temp_balken_outer">
-												<div class="temp_balken_inner"></div>
-											</div>
-										</div>
+									<div class="icon temperature_bg" v-bind:style="api.temperature | temperatureColor">
+										<div class="icon temperature_cover" v-bind:style="api.temperature | temperatureHeight"></div>
+										<div class="icon temperature"></div>
 									</div>
-								</div>
 									<p class="desc">{{ api.temperature }} °C</p>
-								</div>
-								<div class="wrapper">
-									<p class="icon drop_full"></p>
-									<p class="icon drop_empty"></p>
-									<p class="icon drop_empty"></p>
 								</div>
 							</div>
 							<div class="line">

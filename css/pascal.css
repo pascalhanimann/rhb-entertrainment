@@ -54,6 +54,7 @@ main > div {
 }
 
 .dashboard {
+	align-items: center;
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
@@ -64,6 +65,7 @@ main > div {
 .dashboard .line {
 	display: flex;
 	justify-content: space-between;
+	width: 80%;
 }
 
 .dashboard .wrapper {
@@ -104,8 +106,22 @@ main > div {
 	transition: transform 0.2s linear;
 }
 
+.dashboard .temperature_bg {
+	position: relative;
+	transition: background-color 0.2s linear;
+}
+
+.dashboard .temperature_cover {
+	background-color: #D0D0D0;
+	transition: height 0.2s linear;
+	position: absolute;
+	z-index: 1;
+}
+
 .dashboard .temperature {
-	background-image: url("../images/temperature.png");
+	background-image: url("../images/temperatur_stanzmaske_fg-01.svg");
+	position: absolute;
+	z-index: 2;
 }
 
 .dashboard .height {
