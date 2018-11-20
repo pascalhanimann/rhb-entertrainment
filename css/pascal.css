@@ -1,0 +1,193 @@
+@font-face {
+	font-family: "Fago";
+	src: url("./fonts/FagoWeb.woff") format('woff');
+}
+
+html, body {
+	height: 100%;
+}
+
+body {
+	font-family: "Fago", sans-serif;
+	margin: 0;
+}
+
+header {
+	align-items: center;
+	background-color: #e2001a;
+	display: flex;
+	height: 15vh;
+	justify-content: space-between;
+}
+
+header p {
+	color: white;
+	font-size: 16pt;
+	font-weight: bold;
+	margin: 0 1vw;
+}
+
+header p.middle {
+	font-weight: normal;
+}
+
+main {
+	display: flex;
+}
+
+main > div {
+	display: flex;
+	flex-basis: 0;
+	flex-grow: 1;
+	height: 85vh;
+	justify-content: center;
+}
+
+#middle {
+	background-image: url("./images/map.png");
+	background-position: center center;
+	background-size: cover;
+}
+
+.dashboard {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	justify-content: space-around;
+	padding: 2vw;
+}
+
+.dashboard .line {
+	display: flex;
+	justify-content: space-between;
+}
+
+.dashboard .wrapper {
+	display: flex;
+	flex-grow: 1;
+}
+
+.dashboard .icon {
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	flex-grow: 0 !important;
+	height: 2.5vw;
+	width: 2.5vw;
+}
+
+.dashboard p {
+	flex-grow: 1;
+	line-height: 2.5vw;
+	margin: 0;
+}
+
+.dashboard p:nth-child(2n) {
+	break-after: always;
+}
+
+.dashboard .desc {
+	font-size: 1.5vw;
+	padding-left: 2vw;
+}
+
+.dashboard .speed {
+	background-image: url("./images/speed.png");
+}
+
+.dashboard .temperature {
+	background-image: url("./images/temperature.png");
+}
+
+.dashboard .height {
+	background-image: url("./images/height.png");
+}
+
+.dashboard .drop_full {
+	background-image: url("./images/drop_full.png");
+}
+
+.dashboard .drop_empty {
+	background-image: url("./images/drop_empty.png");
+}
+
+.stationcontainer {
+	width: 50%;
+}
+
+.stationlist {
+	height: 85vh;
+	overflow: hidden;
+	width: 100%;
+}
+
+.space.top {
+	transition: margin-top 0.2s linear;
+}
+
+.station {
+	align-items: center;
+	display: flex;
+	height: 17vh;
+	transition: font-size 0.2s linear;
+}
+
+.station p {
+	margin: 0;
+	transition: opacity 0.2s linear;
+}
+
+.perlschnur {
+	height: 17vh;
+	margin-left: 7vh;
+	width: 17vh;
+}
+
+.schnur {
+	align-items: center;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	display: flex;
+	height: 100%;
+	justify-content: center;
+}
+
+.perle {
+	background-color: #184259;
+	border-radius: 50%;
+	height: 7vh;
+	transition: height 0.2s linear, width 0.2s linear;
+	width: 7vh;
+}
+
+.smooth-overlay {
+	align-items: center;
+	background-image: url("./images/smooth.png");
+	background-repeat: repeat-x;
+	background-size: contain;
+	display: flex;
+	height: 85vh;
+	position: absolute;
+	width: 33.3vw;
+	z-index: 1;
+}
+
+.location-line {
+	border-top: 1px dashed #808080;
+	height: 0;
+	width: 30%;
+}
+
+.loading {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: space-around;
+}
+
+.loading p {
+	font-size: 10vh;
+	margin: 0;
+	text-align: center;
+}
