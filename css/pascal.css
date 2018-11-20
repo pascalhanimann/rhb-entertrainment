@@ -1,6 +1,6 @@
 @font-face {
 	font-family: "Fago";
-	src: url("./fonts/FagoWeb.woff") format('woff');
+	src: url("../fonts/FagoWeb.woff") format('woff');
 }
 
 html, body {
@@ -44,7 +44,7 @@ main > div {
 }
 
 #middle {
-	background-image: url("./images/map.png");
+	background-image: url("../images/map.png");
 	background-position: center center;
 	background-size: cover;
 }
@@ -190,4 +190,13 @@ main > div {
 	font-size: 10vh;
 	margin: 0;
 	text-align: center;
+}
+
+.poi-wrapper {
+	background-color: rgba(226, 0, 26, 0.8);
+	width: 100%;
+}
+
+.poi-wrapper h1 {
+	color: white;
 }
