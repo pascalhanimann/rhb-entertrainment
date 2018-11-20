@@ -13,8 +13,8 @@
 	$json['temperature'] = rand(-20, 40);
 	$json['time'] = $now;
 	$json['poi'] = array(
-		"title" => "Landwasserviadukt",
-		"description" => "Meine Beschreibung"
+		'title' => 'Landwasserviadukt',
+		'description' => 'Meine Beschreibung'
 	);
 	
 	if ($reverse) {

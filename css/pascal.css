@@ -45,6 +45,7 @@ main > div {
 	flex-grow: 1;
 	height: 85vh;
 	justify-content: center;
+	position: relative;
 }
 
 #middle {
@@ -194,7 +195,7 @@ main > div {
 	display: flex;
 	height: 85vh;
 	position: absolute;
-	width: 33.3vw;
+	width: 100%;
 	z-index: 1;
 }
 
