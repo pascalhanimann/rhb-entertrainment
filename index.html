@@ -7,75 +7,75 @@
 		<link rel="stylesheet" href="./css/pascal.css" />
 	</head>
 	<body>
-		<div id="app" v-if="api != null">
-			<header>
-				<p class="left">{{ formattedtime }}</p>
-				<p class="middle">Bernina Express</p>
-				<p class="right">{{ formattedtime }}</p>
-			</header>
-			<main>
-				<div id="left">
-					<div class="dashboard">
-						<div class="line">
-							<div class="wrapper">
-								<p class="icon speed"></p><p class="desc">{{ api.speed }} km/h</p>
-							</div>
-						</div>
-						<div class="line">
-							<div class="wrapper">
+		<div id="app">
+			<div v-if="api != null">
+				<header>
+					<p class="left">{{ formattedtime }}</p>
+					<p class="middle">Bernina Express</p>
+					<p class="right">{{ formattedtime }}</p>
+				</header>
+				<main>
+					<div id="left">
+						<div class="dashboard">
+							<div class="line">
 								<div class="wrapper">
-                                <div class=" cont_flex_icons">
-                                    <div class="temp_circle">
-                                        <div class="temp_balken_outer">
-                                            <div class="temp_balken_inner"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                                <p class="desc">{{ api.temperature }} °C</p>
+									<p class="icon speed"></p><p class="desc">{{ api.speed }} km/h</p>
+								</div>
 							</div>
-							<div class="wrapper">
-								<p class="icon drop_full"></p>
-								<p class="icon drop_empty"></p>
-								<p class="icon drop_empty"></p>
-							</div>
-						</div>
-						<div class="line">
-							<div class="wrapper">
-								<p class="icon height"></p><p class="desc">1089m</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div id="middle">
-					<div class="poi-wrapper">
-						<h1></h1>
-					</div>
-				</div>
-				<div id="right">
-					<div class="smooth-overlay"><div class="location-line"></div></div>
-					<div class="stationcontainer">
-						<div class="stationlist">
-							<div class="space top" id="firststation" v-bind:style="'margin-top: ' + locationvh + 'vh;'"></div>
-							<div class="station" v-for="station in api.stations" v-bind:style="'font-size: ' + calculateFontSize(station) + 'px;'">
-								<div class="perlschnur">
-									<div class="schnur" v-bind:style="calculateBackground(station)">
-										<div class="perle" v-bind:style="'width: ' + calculateBulletDimension(station) + 'vh; height: ' + calculateBulletDimension(station) + 'vh;'"></div>
+							<div class="line">
+								<div class="wrapper">
+									<div class="wrapper">
+									<div class=" cont_flex_icons">
+										<div class="temp_circle">
+											<div class="temp_balken_outer">
+												<div class="temp_balken_inner"></div>
+											</div>
+										</div>
 									</div>
 								</div>
-								<p v-bind:style="'opacity: ' + calculateOpacity(station) + ';'">
-									{{ station.name }}
-									<span v-if="calculateRemainingTime(station) > 0">{{ calculateRemainingTime(station) | toMinutes }}'</span>
-								</p>
+									<p class="desc">{{ api.temperature }} °C</p>
+								</div>
+								<div class="wrapper">
+									<p class="icon drop_full"></p>
+									<p class="icon drop_empty"></p>
+									<p class="icon drop_empty"></p>
+								</div>
+							</div>
+							<div class="line">
+								<div class="wrapper">
+									<p class="icon height"></p><p class="desc">1089m</p>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</main>
-		</div>
-		<div v-else class="loading">
-			<p>Keine API-Daten vorhanden.</p>
-			<p>Das Laden der API-Daten kann einige Sekunden dauern.</p>
+					<div id="middle">
+						<poi title="POI Titel">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</poi>
+					</div>
+					<div id="right">
+						<div class="smooth-overlay"><div class="location-line"></div></div>
+						<div class="stationcontainer">
+							<div class="stationlist">
+								<div class="space top" id="firststation" v-bind:style="'margin-top: ' + locationvh + 'vh;'"></div>
+								<div class="station" v-for="station in api.stations" v-bind:style="'font-size: ' + calculateFontSize(station) + 'px;'">
+									<div class="perlschnur">
+										<div class="schnur" v-bind:style="calculateBackground(station)">
+											<div class="perle" v-bind:style="'width: ' + calculateBulletDimension(station) + 'vh; height: ' + calculateBulletDimension(station) + 'vh;'"></div>
+										</div>
+									</div>
+									<p v-bind:style="'opacity: ' + calculateOpacity(station) + ';'">
+										{{ station.name }}
+										<span v-if="calculateRemainingTime(station) > 0">{{ calculateRemainingTime(station) | toMinutes }}'</span>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</main>
+			</div>
+			<div v-else class="loading">
+				<p>Keine API-Daten vorhanden.</p>
+				<p>Das Laden der API-Daten kann einige Sekunden dauern.</p>
+			</div>
 		</div>
 		<script src="./js/jquery.js"></script>
 		<script src="./js/vue.js"></script>

@@ -1,3 +1,8 @@
+Vue.component("poi", {
+	"props": ["title"],
+	"template": '<div class="poi-wrapper"><h1>{{ title }}</h1><p><slot></slot></p></div>'
+});
+
 new Vue({
 	"el": "#app",
 	"data": {
