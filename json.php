@@ -12,6 +12,10 @@
 	$json['speed'] = rand(0, 100);
 	$json['temperature'] = rand(-10, 25);
 	$json['time'] = $now;
+	$json['poi'] = array(
+		"title" => "Landwasserviadukt",
+		"description" => "Kleine Beschreibung"
+	);
 	
 	if ($reverse) {
 		$json['stations'] = array(
