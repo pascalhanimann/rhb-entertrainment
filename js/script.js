@@ -108,6 +108,14 @@ new Vue({
 	"filters": {
 		"toMinutes": function(seconds) {
 			return Math.round(seconds / 60, 0);
+		},
+		"rotate": function(speed) {
+			var min = -135;
+			var max = 135;
+			var factor = speed / 120;
+			var deg = min + factor * (max - min);
+			
+			return "transform: rotate(" + Math.round(deg) + "deg);";
 		}
 	},
 	"mounted": function() {

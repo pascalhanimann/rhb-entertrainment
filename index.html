@@ -19,7 +19,10 @@
 						<div class="dashboard">
 							<div class="line">
 								<div class="wrapper">
-									<p class="icon speed"></p><p class="desc">{{ api.speed }} km/h</p>
+									<div class="icon speed">
+										<div class="icon needle" v-bind:style="api.speed | rotate"></div>
+									</div>
+									<p class="desc">{{ api.speed }} km/h</p>
 								</div>
 							</div>
 							<div class="line">

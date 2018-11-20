@@ -96,7 +96,12 @@ main > div {
 }
 
 .dashboard .speed {
-	background-image: url("../images/speed.png");
+	background-image: url("../images/speed_tacho.svg");
+}
+
+.dashboard .speed .needle {
+	background-image: url("../images/speed_nadel-01.svg");
+	transition: transform 0.2s linear;
 }
 
 .dashboard .temperature {
@@ -204,8 +209,12 @@ main > div {
 }
 
 .poi-wrapper h1 {
-	text-transform: uppercase;
+	background-image: url("../images/position.svg");
+	background-repeat: no-repeat;
+	background-size: contain;
 	margin: 0 0 1vw 0;
+	padding-left: 2vw;
+	text-transform: uppercase;
 }
 
 .poi-wrapper p {

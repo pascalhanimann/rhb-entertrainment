@@ -9,12 +9,12 @@
 	
 	$json['time_per_way'] = $time_per_way;
 	$json['percent'] = round($way_percent, 2);
-	$json['speed'] = rand(0, 100);
+	$json['speed'] = rand(0, 120);
 	$json['temperature'] = rand(-10, 25);
 	$json['time'] = $now;
 	$json['poi'] = array(
 		"title" => "Landwasserviadukt",
-		"description" => "Kleine Beschreibung"
+		"description" => "Meine Beschreibung"
 	);
 	
 	if ($reverse) {
