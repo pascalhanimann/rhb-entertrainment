@@ -28,7 +28,8 @@
 			'type' => 'image',
 			'title' => 'Ruinaulta',
 			'description' => 'Die Rheinschlucht, Ruinaulta genannt, ist ein Unesco Welterbe.',
-            'src' => 'poi_rheinschlucht.jpg'
+            'src' => 'poi_rheinschlucht.jpg',
+			'duration' => 4
 		),
 		array(
 			'location' => 11,
@@ -159,7 +160,13 @@
 	}
 	
 	foreach ($pois as $poi) {
-		if (abs($way_percent - ($reverse ? 100 - $poi['location'] : $poi['location'])) <= 1) {
+		$time = 1;
+		
+		if (array_key_exists('duration', $poi)) {
+			$time = $poi['duration'];
+		}
+		
+		if (abs($way_percent - ($reverse ? 100 - $poi['location'] : $poi['location'])) <= $time) {
 			$json['poi'] = $poi;
 		}
 	}
