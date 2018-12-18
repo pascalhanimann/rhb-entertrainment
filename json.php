@@ -25,7 +25,7 @@
         array('type' => 'image',
 			'title' => 'Ruinaulta',
 			'description' => 'Die Rheinschlucht, Ruinaulta genannt, ist ein Unesco Welterbe',
-            'src' => 'poi_rheinschlucht.jpg'
+            'src' => 'poi_rheinschlucht.jpg',
 			'location' => 5
 		),
 		array(
@@ -61,7 +61,7 @@
                 array('type' => 'image',
 			'title' => 'Wasserscheide',
 			'description' => 'Die Wasserscheide zwischen adriatischem und schwarzem Meer',
-            'src' => 'poi_wasserscheide.jpg'
+            'src' => 'poi_wasserscheide.jpg',
 			'location' => 40
 		),
 
@@ -73,7 +73,7 @@
         array('type' => 'image',
 			'title' => 'Gletschermühle',
 			'description' => 'Die Gletschermühlen entstanden in der letzten Eiszeit',
-            'src' => 'poi_gletschermuehle.jpg'
+            'src' => 'poi_gletschermuehle.jpg',
 			'location' => 60
 		),        
 		array('type' => 'text',
