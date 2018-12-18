@@ -222,11 +222,36 @@ main > div {
 .poi-wrapper {
 	background-color: rgba(226, 0, 26, 0.8);
 	color: white;
-	padding: 1vw;
 	width: 100%;
 }
 
-.poi-wrapper h1 {
+.poi-text {
+	padding: 1vw;
+}
+
+.poi-image {
+	background-position: center;
+	background-size: cover;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: flex-end;
+}
+
+.poi-lower-third {
+	background-color: rgba(0, 0, 0, 0.4);
+	padding: 0.5vw 1vw;
+}
+
+.poi-lower-third h1, .poi-lower-third p {
+	text-align: right;
+}
+
+.poi-lower-third h1 {
+	margin: 0 0 0.3vw 0;
+}
+
+.poi-text h1 {
 	background-image: url("../images/position.svg");
 	background-repeat: no-repeat;
 	background-size: contain;

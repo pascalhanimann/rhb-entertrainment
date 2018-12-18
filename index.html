@@ -4,6 +4,20 @@
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 		<title>Entertrainment Reloaded</title>
 		<link rel="stylesheet" href="./css/style.css" />
+		<script id="template-poi" type="text/x-template">
+			<div class="poi-wrapper">
+				<div v-if="poi.type == 'text'" class="poi-text">
+					<h1>{{ poi.title }}</h1>
+					<p>{{ poi.description }}</p>
+				</div>
+				<div v-else class="poi-image" v-bind:style="{ backgroundImage: 'url(./images/' + poi.src + ')' }">
+					<div class="poi-lower-third">
+						<h1>{{ poi.title }}</h1>
+						<p>{{ poi.description }}</p>
+					</div>
+				</div>
+			</div>
+		</script>
 	</head>
 	<body>
 		<div id="app">
@@ -41,7 +55,7 @@
 						</div>
 					</div>
 					<div id="middle">
-						<poi v-if="api.poi != null" v-bind:title="api.poi.title">{{ api.poi.description }}</poi>
+						<poi v-if="api.poi != null" v-bind:poi="api.poi"></poi>
 					</div>
 					<div id="right">
 						<div class="smooth-overlay"><div class="location-line"></div></div>

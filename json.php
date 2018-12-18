@@ -4,6 +4,7 @@
     $json = array();
 	$now = time();
 	$time_per_way = 4 * 60 * 60 + 17 * 60;
+	$time_per_way = 100;
 	$time_total = 2 * $time_per_way;
 	$time = $now % $time_per_way;
 	$reverse = ($now % $time_total) >= $time_per_way;
@@ -22,9 +23,10 @@
 	}
 	
 	$pois = array(
-        array('type' => 'image',
+        array(
+			'type' => 'image',
 			'title' => 'Ruinaulta',
-			'description' => 'Die Rheinschlucht, Ruinaulta genannt, ist ein Unesco Welterbe',
+			'description' => 'Die Rheinschlucht, Ruinaulta genannt, ist ein Unesco Welterbe.',
             'src' => 'poi_rheinschlucht.jpg',
 			'location' => 5
 		),
@@ -46,33 +48,36 @@
 			'description' => 'Wir erreichen bald Stuls. Besser gesagt: Wir fahren am Bahnhof Stuls vorbei, weit weg vom Dorf. Aus der Zeit des Beginns des Bahnverkehrs, über 100 Jahre hinweg, stehen hier heute noch Bauten. 1903 herrschte hier noch reges Treiben. Die Gebäude, welche vom Zug aus gut sichtbar sind, stehen unter Denkmalschutz. ',
 			'location' => 26.5
 		),
-		array('type' => 'text',
+		array(
+			'type' => 'text',
 			'title' => 'Kehrtunnels & Schlaufen',
 			'description' => 'Wir befinden uns nun im steilsten und spektakulärsten Abschnitt der Albulalinie. Auf der kurzen Distanz von Bergün nach Preda überwindet der Zug in unzähligen Schlaufen 416 Höhenmeter. Den Dreh findet er nur dank einem bahntechnischen Meisterwerk: den insgesamt vier Kehrtunnels. Erst das Ausweichen in diese kreisförmigen Tunnels im Berginneren ermöglicht im Steilhang genügend weite Kurvenradien, damit sich der Zug in die Höhe schrauben kann.',
 			'location' => 33
 		),		
 
-		array('type' => 'text',
+		array(
+			'type' => 'text',
 			'title' => 'Engadin - Die Wiege des Wintertourismus',
 			'description' => 'Wir befinden uns im Oberengadin, der Wiege des Wintertourismus. Die Bahnlinie überquert in Samedan den Inn. Von der Quelle am Malojapass durchfliesst der 500 Kilometer lange Alpenstrom das ganze Engadin und fliesst weiter durch Österreich und Deutschland, wo er in Passau in die Donau mündet. Die Berninalinie wird hier vom Fluss «Flaz» begleitet, ein wichtiger Zufluss des Inns. Hier in Samedan befindet sich zudem der höchstgelegene Flugplatz Europas.',
 			'location' => 38
 		),
-        
-                array('type' => 'image',
+		array(
+			'type' => 'image',
 			'title' => 'Wasserscheide',
-			'description' => 'Die Wasserscheide zwischen adriatischem und schwarzem Meer',
+			'description' => 'Die Wasserscheide zwischen adriatischem und schwarzem Meer.',
             'src' => 'poi_wasserscheide.jpg',
 			'location' => 40
 		),
-
-		array('type' => 'text',
+		array(
+			'type' => 'text',
 			'title' => 'Bernina Gletscher - Das ewige Eis',
 			'description' => 'Die Luftseilbahn Bernina Diavolezza erschliesst bequem die Bergstation auf 3 000 Metern über Meer. Oben wartet ein überwältigendes Alpen-Panorama mit Aussicht auf den Pers- und Morteratsch-Gletscher. Am Horizont erheben sich imposante Gipfel. Der Piz Bernina ist mit 4 049 Metern über Meer der höchste Gipfel der Ostalpen.',
 			'location' => 53
 		),
-        array('type' => 'image',
+        array(
+			'type' => 'image',
 			'title' => 'Gletschermühle',
-			'description' => 'Die Gletschermühlen entstanden in der letzten Eiszeit',
+			'description' => 'Die Gletschermühlen entstanden in der letzten Eiszeit.',
             'src' => 'poi_gletschermuehle.jpg',
 			'location' => 60
 		),        

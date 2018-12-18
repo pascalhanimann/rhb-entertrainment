@@ -1,6 +1,6 @@
 Vue.component("poi", {
-	"props": ["title"],
-	"template": '<div class="poi-wrapper"><h1>{{ title }}</h1><p><slot></slot></p></div>'
+	"props": ["poi"],
+	"template": "#template-poi"
 });
 
 new Vue({
