@@ -4,7 +4,6 @@
     $json = array();
 	$now = time();
 	$time_per_way = 4 * 60 * 60 + 17 * 60;
-	$time_per_way = 300;
 	$time_total = 2 * $time_per_way;
 	$time = $now % $time_per_way;
 	$reverse = ($now % $time_total) >= $time_per_way;
