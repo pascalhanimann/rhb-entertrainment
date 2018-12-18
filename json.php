@@ -1,31 +1,30 @@
 <?php
-	function generate_speed() {
-		$temp=40;
-		$delta_speed = rand(-5,5);
-		$current_speed = ($temp+ $delta_speed);
-		
-		return $current_speed;
-	}
+	include './php/db.php';
 	
     $json = array();
 	$now = time();
 	$time_per_way = 4 * 60 * 60 + 17 * 60;
+	$time_per_way = 300;
 	$time_total = 2 * $time_per_way;
 	$time = $now % $time_per_way;
 	$reverse = ($now % $time_total) >= $time_per_way;
 	$way_percent = $time / $time_per_way * 100;
-    
+    $env_data = $db->get_env_data($way_percent);
+	
 	$json['time_per_way'] = $time_per_way;
 	$json['percent'] = round($way_percent, 2);
 	
-    $json['speed'] = generate_speed(); 
-	
-	$json['temperature'] = rand(-20, 40);
 	$json['time'] = $now;
+	
+	if ($env_data != null) {
+		$json['speed'] = $env_data['speed'] + round(rand(-2 , 2));
+		$json['temperature'] = $env_data['temperature'];
+		$json['elevation'] = $env_data['elevation'] + round(rand(-1 , 1));
+	}
 	
 	$pois = array(
 		array(
-			'title' => 'Solis Viadukt - Die höchste Brücke der Albulalinie',
+			'title' => 'Solis Viadukt',
 			'description' => 'In wenigen Momenten fahren wir über die höchste Brücke der Albulalinie: Der Solisviadukt führt 85 Meter hoch über den Fluss Albula. Ein Bogen von 42 Metern Spannweite trägt die Konstruktion. Es ist der längste Brückenbogen der Albulalinie.',
 			'location' => 11
 		),
@@ -60,12 +59,12 @@
 			'location' => 71
 		),
 		array(
-			'title' => 'Miralago - Der winzige Ort am Lago di Poschiavo',
+			'title' => 'Miralago - Der Ort am Lago di Poschiavo',
 			'description' => 'Miralago nennen sich der winzige Ort und die Bahnstation am Südufer des Lago di Poschiavo. In den ersten Jahren des 20. Jahrhunderts, während des Baus der Bernina-Bahn, erlebte der Weiler eine Blütezeit. Heute ist die Gegend bekannt für Ruhe und Entspannung.',
 			'location' => 92
 		),
 		array(
-			'title' => 'Kreisviadukt Brusio - Ingenieurskunst der Schweizer Eisenbahnbauer',
+			'title' => 'Kreisviadukt Brusio',
 			'description' => 'Der Kreisviadukt von Brusio – man nennt ihn auch das Gesellenstück der Schweizer Eisenbahningenieure. Hier dreht man sich im Kreis. Um im steilen Gelände Höhe zu überwinden, schlängelt sich der Zug in einer 360-Grad-Schleife über neun Bögen zu Tal. Unter einem der Viaduktbögen hindurch fädelt sich der Zug wieder aus. Das höchst fotogene Bauwerk gehört zum Repertoire jedes Bernina Express Reisenden.',
 			'location' => 96
 		)
@@ -129,7 +128,7 @@
 	}
 	
 	foreach ($pois as $poi) {
-		if (abs($way_percent - $poi['location']) <= 1) {
+		if (abs($way_percent - ($reverse ? 100 - $poi['location'] : $poi['location'])) <= 1) {
 			$json['poi'] = $poi;
 		}
 	}

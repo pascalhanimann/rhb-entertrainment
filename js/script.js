@@ -123,7 +123,7 @@ new Vue({
 			var red = [77, 239];
 			var green = [101, 58];
 			var blue = [224, 44];
-			var factor = (temperature + 20) / (max - min);
+			var factor = (parseInt(temperature) + 20) / (max - min);
 			
 			var r = red[0] + factor * (red[1] - red[0]);
 			var g = green[0] + factor * (green[1] - green[0]);
@@ -135,6 +135,7 @@ new Vue({
 			var min = -20;
 			var max = 40;
 			
+			temperature = parseInt(temperature);
 			temperature += 20;
 			
 			return "height: " + (1 - temperature / (max - min)) * 100 + "%;";

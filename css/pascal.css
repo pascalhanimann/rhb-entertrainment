@@ -52,6 +52,7 @@ main > div {
 	background-image: url("../images/map.png");
 	background-position: center center;
 	background-size: cover;
+	flex-grow: 1.5;
 }
 
 .dashboard {
@@ -138,7 +139,7 @@ main > div {
 }
 
 .stationcontainer {
-	width: 50%;
+	width: 80%;
 }
 
 .stationlist {
@@ -202,7 +203,7 @@ main > div {
 .location-line {
 	border-top: 1px dashed #808080;
 	height: 0;
-	width: 30%;
+	width: 16%;
 }
 
 .loading {
