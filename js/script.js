@@ -153,6 +153,6 @@ new Vue({
 					vue2.$data.api = response.responseJSON;
 				}
 			});
-		}, 1000);
+		}, 2000);
 	}
 });
