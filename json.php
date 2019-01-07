@@ -17,7 +17,7 @@
 	$json['time'] = $now;
 	
 	if ($env_data != null) {
-		$json['speed'] = $env_data['speed'] + round(rand(-2 , 2));
+		$json['speed'] = abs($env_data['speed'] + round(rand(-2 , 2)));
 		$json['temperature'] = $env_data['temperature'];
 		$json['elevation'] = $env_data['elevation'] + round(rand(-1 , 1));
 	}
