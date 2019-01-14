@@ -2,26 +2,41 @@
 	include './php/db.php';
 	
     $json = array();
+	
+	// Aktuelle Zeit im UNIX-Timestamp-Format
 	$now = time();
+	
+	// Zeit pro Weg in Sekunden
 	$time_per_way = 4 * 60 * 60 + 17 * 60;
-	$time_per_way = 100;
+	
+	// Zeit total für Hin- und Rückweg in Sekunden
 	$time_total = 2 * $time_per_way;
+	
+	// Zeit, die während der jetzigen Reise bereits vergangen ist in Sekunden
 	$time = $now % $time_per_way;
+	
+	// True, falls sich der Zug auf der Rückfahrt befindet
 	$reverse = ($now % $time_total) >= $time_per_way;
+	
+	// Streckenprozent
 	$way_percent = $time / $time_per_way * 100;
+	
+	// Temperatur, Höhe und Geschwindigkeit aus der Datenbank holen
     $env_data = $db->get_env_data($way_percent);
 	
+	// Einige Werte bereits ins JSON schreiben
 	$json['time_per_way'] = $time_per_way;
 	$json['percent'] = round($way_percent, 2);
-	
 	$json['time'] = $now;
 	
+	// Temperatur, Höhe und Geschwindigkeit aufbereiten, noch ein bisschen Zufall ins Spiel bringen
 	if ($env_data != null) {
 		$json['speed'] = abs($env_data['speed'] + round(rand(-2 , 2)));
 		$json['temperature'] = $env_data['temperature'];
 		$json['elevation'] = $env_data['elevation'] + round(rand(-1 , 1));
 	}
 	
+	// Alle POIs
 	$pois = array(
         array(
 			'location' => 5,
@@ -102,6 +117,7 @@
 		)
 	);
 	
+	// Alle Haltestellen
 	$json['stations'] = array(
 		array(
 			'index' => 0,
@@ -150,6 +166,7 @@
 		)
 	);
 	
+	// Falls auf dem Rückweg, kehre das POI- und das Haltestellen-Array um
 	if ($reverse) {
 		$json['stations'] = array_reverse($json['stations']);
 		
@@ -159,6 +176,7 @@
 		}
 	}
 	
+	// Prüfen, ob der Zug gerade in Reichweite eines POIs ist und falls ja, diesen POI ebenfalls ins JSON speichern
 	foreach ($pois as $poi) {
 		$time = 1;
 		
@@ -171,5 +189,6 @@
 		}
 	}
 	
+	// JSON ausgeben
 	echo json_encode($json, JSON_PRETTY_PRINT + JSON_UNESCAPED_UNICODE);
 ?>
