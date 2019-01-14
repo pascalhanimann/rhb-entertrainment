@@ -1,3 +1,4 @@
+// Vue-Komponente für POIs definieren
 Vue.component("poi", {
 	"props": ["poi"],
 	"template": "#template-poi"
@@ -10,6 +11,7 @@ new Vue({
 		"fontSizeTrigger": 10
 	},
 	"computed": {
+		// Gibt die letzte Station, an der der Zug gehalten hat, zurück
 		"stationBefore": function() {
 			var station = null;
 			
@@ -21,6 +23,7 @@ new Vue({
 			
 			return station;
 		},
+		// Gibt die nächste Station, an der der Zug halten wird, zurück
 		"stationAfter": function() {
 			var station = null;
 			
@@ -33,6 +36,7 @@ new Vue({
 			
 			return station;
 		},
+		// Berechnet je nach Streckenprozent, wie weit die Perlschnur heruntergeschoben werden muss
 		"locationvh": function() {
 			var stationBefore = this.stationBefore;
 			var stationAfter = this.stationAfter;
@@ -53,17 +57,21 @@ new Vue({
 				return vhBase - vhDelta;
 			}
 		},
+		// Formatiert eine Uhrzeit im Format HH:mm
 		"formattedtime": function() {
 			return moment.unix(this.api.time).format("HH:mm");
 		}
 	},
 	"methods": {
+		// Berechnet für jede Station die Schriftgrösse
 		"calculateFontSize": function(station) {
 			return this.calculateForStation(station, 20, 36);
 		},
+		// Berechnet für jede Station die Deckkraft
 		"calculateOpacity": function(station) {
 			return this.calculateForStation(station, 0.5, 1);
 		},
+		// Berechnet einen beliebigen Wert für eine beliebige Station, wenn min und max des Wertes bekannt sind
 		"calculateForStation": function(station, min, max) {
 			if (this.api.stations[this.api.stations.length - 1].index == station.index && this.stationAfter == null) {
 				var range = 100 - this.api.stations[this.api.stations.length - 2].location;
@@ -84,9 +92,11 @@ new Vue({
 				return min;
 			}
 		},
+		// Berechnet, wie gross die "Perle" bei dieser Station sein muss
 		"calculateBulletDimension": function(station) {
 			return this.calculateForStation(station, 4, 10);
 		},
+		// Schaut, ob diese Station die Start- oder Endstation ist und zeigt je nach dem ein anderes Bild der "Perle" an
 		"calculateBackground": function(station) {
 			var pic = "./images/schnur_beide.png";
 			
@@ -98,6 +108,7 @@ new Vue({
 			
 			return "background-image: url('" + pic + "');";
 		},
+		// Berechnet, wieviele Sekunden es noch bis zur angegebenen Station sind
 		"calculateRemainingTime": function(station) {
 			var remainingPercent = station.location - this.api.percent;
 			var remainingSeconds = remainingPercent / 100 * this.api.time_per_way;
@@ -106,9 +117,11 @@ new Vue({
 		}
 	},
 	"filters": {
+		// Rundet eine Sekundenanzahl auf ganze Minuten
 		"toMinutes": function(seconds) {
 			return Math.round(seconds / 60, 0);
 		},
+		// Berechnet, um wieviel Grad der Zeiger bei der Geschwindigkeitsanzeige gedreht werden muss
 		"rotate": function(speed) {
 			var min = -135;
 			var max = 135;
@@ -117,6 +130,7 @@ new Vue({
 			
 			return "transform: rotate(" + Math.round(deg) + "deg);";
 		},
+		// Berechnet, welche Farbe die Temperaturanzeige haben muss
 		"temperatureColor": function(temperature) {
 			var min = -20;
 			var max = 40;
@@ -131,6 +145,7 @@ new Vue({
 			
 			return "background-color: rgb(" + Math.round(r) + ", " + Math.round(g) + ", " + Math.round(b) + ");";
 		},
+		// Berechnet, wie stark gefüllt die Temperaturanzeige sein soll
 		"temperatureHeight": function(temperature) {
 			var min = -20;
 			var max = 40;
@@ -141,6 +156,7 @@ new Vue({
 			return "height: " + (1 - temperature / (max - min)) * 100 + "%;";
 		}
 	},
+	// Wird beim Start von Vue ausgeführt und sorgt dafür, dass alle 2 Sekunden das interne JSON aktualisiert wird
 	"mounted": function() {
 		var vue = this;
 		
